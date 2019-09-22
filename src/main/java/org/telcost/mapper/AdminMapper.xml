@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.telcost.mapper.AdminMapper">
+    <resultMap type="Admin" id="adminResult">
+        <collection property="lp" column="aid"  javaType="ArrayList" select="org.telcost.mapper.PowMapper.getAllPow"></collection>
+        <collection property="lr" column="aid"  javaType="ArrayList" select="org.telcost.mapper.RoleMapper.getAllRole"></collection>
+    </resultMap>
+    <select id="loginAdmin"  resultMap="adminResult" parameterType="Admin">
+        select * from tc_admin where acname=#{acname} and apwd=#{apwd}
+    </select>
+    
+    <update id="updateAdminPassword" parameterType="Admin">
+    	update tc_admin set apwd = #{apwd} where acname = #{acname}
+    </update>
+    
+    <update id="updateAdminInfo" parameterType="Admin">
+		update tc_admin set aname=#{aname} , atel=#{atel} , aemail=#{aemail} where acname = #{acname}
+    </update>
+</mapper>

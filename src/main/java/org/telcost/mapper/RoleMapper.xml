@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.telcost.mapper.RoleMapper">
+    <select id="getAllRole" resultType="Role">
+        select * from tc_role where rid in (select rid from tc_admin_role where aid=#{aid})
+    </select>
+    
+    <select id="selectAllRole" resultType="Role">
+        select * from tc_role
+    </select>
+    
+    <insert id="insertRole" parameterType="Role">
+    	insert into tc_role(rid,rname) values(#{rid},#{rname}) 
+    </insert>
+    
+    <insert id="insertRolePriv" parameterType="Role">
+    	insert into tc_pow_role(rid,pid) values(#{rid},#{pid}) 
+    </insert>
+    
+    <select id="getRoleNameByRid" resultType="Role">
+        select * from tc_role where rid = #{rid}
+    </select>
+    
+    <update id="updateRoleName" parameterType="Role">
+    	update tc_role set rname = #{rname} where rid = #{rid}
+    </update>
+    
+    <delete id="deleteRolePows" parameterType="Role">
+    	delete from tc_pow_role where rid = #{rid}
+    </delete>
+	
+	<insert id="insertRolePows" parameterType="Role">
+    	insert into tc_pow_role(rid,pid) values(#{rid},#{pid}) 
+    </insert>
+    
+    <delete id="deleteRole" parameterType="Role">
+    	delete from tc_role where rid = #{rid}
+    </delete>
+</mapper>

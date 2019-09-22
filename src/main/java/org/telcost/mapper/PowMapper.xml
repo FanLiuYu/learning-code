@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.telcost.mapper.PowMapper">
+    <select id="getAllPow" resultType="Pow">
+       select * from tc_pow where pid in ( select pid from tc_pow_role where rid in (select rid from tc_admin_role where aid=#{aid}));
+    </select>
+    
+    <select id="selectPowByRid" resultType="Pow">
+       select * from tc_pow where pid in ( select pid from tc_pow_role where rid=#{rid});
+    </select>
+    
+    <select id="getAllPowInRole" resultType="Pow">
+       select * from tc_pow 
+    </select>
+</mapper>
